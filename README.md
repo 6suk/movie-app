@@ -9,7 +9,7 @@
 
 ## 🔵 완성
 
-<img src="./public/img/01.gif">
+<img src="./public/img/03.gif">
 
 - 영화 API를 활용해 영화 리스트 출력하기
 - 기본 20개 출력 '더보기' 클릭 시 더 가져오기
@@ -20,10 +20,10 @@
 
 ### 🔸 메인 페이지
 
-<img src="./public/img/02.gif">
+<img src="./public/img/01.gif">
 
 <br><br>
 
 ### 🔸 디테일 페이지
 
-<img src="./public/img/03.gif">
+<img src="./public/img/02.gif">
