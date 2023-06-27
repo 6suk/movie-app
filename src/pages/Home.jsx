@@ -22,7 +22,7 @@ const ItemAnimation = keyframes`
 `;
 
 const Section = styled.section`
-  margin-top: 10rem;
+  margin-top: 5rem;
   margin-bottom: 10rem;
 `;
 
