@@ -9,10 +9,6 @@ const movies = createSlice({
     setMovies: (state, action) => {
       state.data = action.payload;
     },
-    getMovie: (state, action) => {
-      const movies = state.data;
-      return movies.find((movie) => movie.id === action.payload);
-    },
   },
 });
 
