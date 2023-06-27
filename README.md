@@ -17,13 +17,3 @@
 - [더 많은 이슈보기](https://github.com/6suk/movie_app/issues?q=is%3Aissue+is%3Aclosed)
 
 <br><br>
-
-### 🔸 메인 페이지
-
-<img src="./public/img/01.gif">
-
-<br><br>
-
-### 🔸 디테일 페이지
-
-<img src="./public/img/02.gif">
