@@ -1,11 +1,94 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMovies } from '../store/movieSlice';
+import { setMovies, setLimit } from '../store/movieSlice';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+const Home = () => {
+  const dispatch = useDispatch();
+  const [more, setMore] = useState(true);
+  const [loading, setLoading] = useState(true);
+  let { movies } = useSelector((state) => state);
+  const limit = movies.limit;
+  movies = movies.data;
+
+  const handleMoreView = () => {
+    dispatch(setLimit());
+  };
+
+  const getMovieData = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year&limit=${limit}`
+      );
+      const movies = await data.data.movies;
+      dispatch(setMovies(movies));
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (limit === 50) setMore(false);
+    if (movies.length !== limit) getMovieData();
+    else setLoading(false);
+  }, [limit]);
+
+  return (
+    <Section>
+      <Container>
+        {!loading && (
+          <>
+            <ItemList>
+              <MovieCards movies={movies} />
+            </ItemList>
+            {more && (
+              <MoreButton
+                type="button"
+                onClick={() => {
+                  handleMoreView();
+                }}>
+                더보기
+              </MoreButton>
+            )}
+          </>
+        )}
+      </Container>
+    </Section>
+  );
+};
+
+const MovieCards = ({ movies }) => {
+  const nav = useNavigate();
+
+  const noImage = (e) => {
+    e.target.parentNode.parentNode.parentNode.style.display = 'none';
+  };
+
+  return movies.map((movie) => (
+    <Item key={movie.id} onClick={() => nav(`/detail/${movie.id}`)}>
+      <Article>
+        <Img>
+          <div className="item-top">
+            <p>{movie.year}</p>
+            <p>
+              <FontAwesomeIcon icon={faStar} className="star" /> {movie.rating}
+            </p>
+          </div>
+          <img src={movie.large_cover_image} alt={movie.title} onError={noImage} />
+        </Img>
+        <Info>
+          <p className="title">{movie.title}</p>
+          <p className="desc">{movie.summary}</p>
+        </Info>
+      </Article>
+    </Item>
+  ));
+};
 
 const ItemAnimation = keyframes`
   0% {
@@ -158,83 +241,5 @@ const MoreButton = styled.button`
     transform: scale3d(1.01, 1.01, 1.01);
   }
 `;
-
-const Home = () => {
-  const dispatch = useDispatch();
-  const [limit, setLimit] = useState(20);
-  const [loading, setLoading] = useState(true);
-  let { movies } = useSelector((state) => state);
-  movies = movies.data;
-
-  const handleMoreView = () => {
-    setLimit(limit + 10);
-  };
-
-  const getMovieData = async () => {
-    try {
-      const { data } = await axios.get(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year&limit=${limit}`
-      );
-      const movies = await data.data.movies;
-      dispatch(setMovies(movies));
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getMovieData();
-  }, [limit]);
-
-  return (
-    <Section>
-      <Container>
-        {!loading && (
-          <>
-            <ItemList>
-              <MovieCards movies={movies} />
-            </ItemList>
-            <MoreButton
-              type="button"
-              onClick={() => {
-                handleMoreView();
-              }}>
-              더보기
-            </MoreButton>
-          </>
-        )}
-      </Container>
-    </Section>
-  );
-};
-
-const MovieCards = ({ movies }) => {
-  const nav = useNavigate();
-
-  const noImage = (e) => {
-    e.target.parentNode.parentNode.parentNode.style.display = 'none';
-  };
-
-  return movies.map((movie) => (
-    <Item key={movie.id} onClick={() => nav(`/detail/${movie.id}`)}>
-      <Article>
-        <Img>
-          <div className="item-top">
-            <p>{movie.year}</p>
-            <p>
-              <FontAwesomeIcon icon={faStar} className="star" /> {movie.rating}
-            </p>
-          </div>
-          <img src={movie.large_cover_image} alt={movie.title} onError={noImage} />
-        </Img>
-        <Info>
-          <p className="title">{movie.title}</p>
-          <p className="desc">{movie.summary}</p>
-        </Info>
-      </Article>
-    </Item>
-  ));
-};
 
 export default Home;
