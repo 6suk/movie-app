@@ -9,7 +9,7 @@
 
 ## 🔵 완성
 
-<img src="https://velog.velcdn.com/images/6suk/post/53f9de11-162e-4cbc-bc71-9dfb4a3ce53a/image.gif">
+<img src="./public/img/01.gif">
 
 - 영화 API를 활용해 영화 리스트 출력하기
 - 기본 20개 출력 '더보기' 클릭 시 더 가져오기
@@ -20,10 +20,10 @@
 
 ### 🔸 메인 페이지
 
-<img src="https://velog.velcdn.com/images/6suk/post/c665ad2a-4e66-4d77-b936-a0f969d94735/image.gif">
+<img src="./public/img/02.gif">
 
 <br><br>
 
 ### 🔸 디테일 페이지
 
-<img src="https://velog.velcdn.com/images/6suk/post/d6243e3c-19f0-4de4-824b-6ee82554cde0/image.gif">
+<img src="./public/img/03.gif">
