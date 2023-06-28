@@ -91,7 +91,7 @@ const ItemAnimation = keyframes`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  width: 450px;
+  max-width: 450px;
   color: #fff;
   text-align: left;
   gap: 0.5rem;
@@ -102,7 +102,7 @@ const Info = styled.div`
     font-weight: 600;
   }
   .desc {
-    padding-top: 0.5rem;
+    padding-top: 1rem;
     font-size: 16px;
     line-height: 1.7rem;
     font-weight: 200;
@@ -115,6 +115,10 @@ const Info = styled.div`
     -webkit-line-clamp: 15;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+
+    @media (min-width: 768px) {
+      padding-top: 0.5rem;
+    }
   }
 
   .item-top {
@@ -153,7 +157,7 @@ const Header = styled.header`
   z-index: 999;
   color: #e4e4e4;
   padding-block: 1.5rem;
-  padding-left: 3rem;
+  padding-left: 2rem;
 
   div {
     align-items: center;
@@ -169,24 +173,40 @@ const Header = styled.header`
 
 const Section = styled.section`
   position: relative;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (min-width: 768px) {
+    height: 100vh;
+  }
 `;
 
 const Article = styled.article`
   position: relative;
   z-index: 2;
   display: flex;
-  flex-direction: row;
-  gap: 2rem;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   top: 0px;
   animation: ${ItemAnimation} 0.8s ease-in-out forwards;
+  margin-block: 8rem;
+  margin-inline: 3rem;
+  gap: 5rem;
 
   img {
-    width: 40%;
+    width: 80%;
+  }
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    align-items: normal;
+    margin: 0rem;
+
+    img {
+      width: 40%;
+    }
   }
 `;
 
