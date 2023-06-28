@@ -9,6 +9,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [numColumns, setNumColumns] = useState(1);
   const [more, setMore] = useState(true);
   const [loading, setLoading] = useState(true);
   let { movies } = useSelector((state) => state);
@@ -114,36 +115,44 @@ const Container = styled.div`
 `;
 
 const ItemList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 25px;
-  row-gap: 50px;
-  grid-auto-rows: max-content;
   max-width: 1200px;
   margin: 0 auto;
-  width: min-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
+  grid-gap: 1.5625rem;
+  row-gap: 3.125rem;
+  padding-inline: 3rem;
+
+  @media (min-width: 768px) {
+    padding-inline: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+  }
 `;
 
 const Item = styled.li`
   transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
-  display: flex;
-  margin: 0 auto;
   cursor: pointer;
 
   &:hover {
     transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
     transform: scale3d(1.01, 1.01, 1.01);
   }
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
 `;
 
 const Article = styled.article`
   padding: 1.5rem;
-  position: relative;
-  width: 230px;
-  overflow: hidden;
+
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: hidden;
   align-items: center;
+
   top: 0px;
   animation: ${ItemAnimation} 0.8s ease-in-out forwards;
   background-color: #fff;
@@ -153,10 +162,21 @@ const Article = styled.article`
 const Info = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
-  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  padding-inline: 0.5rem;
+  gap: 1rem;
+
+  @media (min-width: 768px) {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+    padding-inline: 0rem;
+    padding-bottom: 0rem;
+    gap: 0.5rem;
+  }
 
   .title {
+    font-size: 1.25rem;
     font-weight: 600;
     overflow: hidden;
     white-space: normal;
@@ -165,12 +185,16 @@ const Info = styled.div`
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+
+    @media (min-width: 768px) {
+      font-size: 1rem;
+    }
   }
   .desc {
     line-height: 20px;
     color: #777;
     font-weight: 300;
-    font-size: 14px;
+    font-size: 1rem;
 
     overflow: hidden;
     white-space: normal;
@@ -179,6 +203,10 @@ const Info = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+
+    @media (min-width: 768px) {
+      font-size: 0.875rem;
+    }
   }
 `;
 
@@ -189,18 +217,14 @@ const Img = styled.div`
     width: 100%;
   }
 
-  img.none {
-    background-color: #ececec;
-    width: fit-content;
-  }
-
   .item-top {
     width: -webkit-fill-available;
     position: absolute;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0.5rem;
+    padding: 1rem;
+    letter-spacing: 0.5px;
   }
 
   .item-top p {
@@ -208,7 +232,7 @@ const Img = styled.div`
     border-radius: 1rem;
     padding-inline: 0.8rem;
     padding-block: 0.3rem;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
   }
 
@@ -220,16 +244,26 @@ const Img = styled.div`
   .item-top p .star {
     color: #ff6a14;
   }
+
+  @media (min-width: 768px) {
+    .item-top {
+      padding: 0.6rem;
+    }
+    .item-top p {
+      font-size: 0.875rem;
+    }
+  }
 `;
 
 const MoreButton = styled.button`
   cursor: pointer;
   margin-top: 3rem;
+  margin: 3rem auto;
   font-family: Pretendard;
-  font-size: 16px;
+  font-size: 1rem;
   border: none;
-  width: 250px;
-  height: 50px;
+  width: 80%;
+  padding-block: 1rem;
   border-radius: 10px;
   background-color: #222;
   color: #fff;
@@ -238,7 +272,11 @@ const MoreButton = styled.button`
 
   &:hover {
     transition: all 0.3s cubic-bezier(0, 0, 0.5, 1);
-    transform: scale3d(1.01, 1.01, 1.01);
+    transform: scale3d(1.02, 1.02, 1.02);
+  }
+
+  @media (min-width: 768px) {
+    width: 280px;
   }
 `;
 
