@@ -121,7 +121,7 @@ const ItemList = styled.ul`
   grid-template-columns: repeat(auto-fill, minmax(17.5rem, 1fr));
   grid-gap: 1.5625rem;
   row-gap: 3.125rem;
-  padding-inline: 3rem;
+  padding-inline: 2rem;
 
   @media (min-width: 768px) {
     padding-inline: 1rem;
@@ -203,6 +203,8 @@ const Info = styled.div`
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     word-break: keep-all;
+
+    min-height: 60px;
 
     @media (min-width: 768px) {
       font-size: 0.875rem;
