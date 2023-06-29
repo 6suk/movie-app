@@ -4,18 +4,25 @@ const movies = createSlice({
   name: 'movie',
   initialState: {
     data: [],
-    limit: 20,
+    curPage: 1,
+    page: 0,
+    count: 0,
   },
   reducers: {
     setMovies: (state, action) => {
       state.data = action.payload;
     },
-    setLimit: (state, action) => {
-      state.limit += 10;
-      if (state.limit === 60) state.limit = 50;
+    setCount: (state, action) => {
+      state.count = action.payload;
+    },
+    setPage: (state) => {
+      state.page = state.page + 1;
+    },
+    setCurPage: (state) => {
+      state.curPage += 1;
     },
   },
 });
 
 export default movies;
-export const { setMovies, setLimit } = movies.actions;
+export const { setMovies, setPage, setCount, setCurPage } = movies.actions;
