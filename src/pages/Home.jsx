@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setMovies, setLimit } from '../store/movieSlice';
+import { setMovies, setPage, setCount, setCurPage } from '../store/movieSlice';
 import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,35 +9,50 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [numColumns, setNumColumns] = useState(1);
   const [more, setMore] = useState(true);
   const [loading, setLoading] = useState(true);
   let { movies } = useSelector((state) => state);
-  const limit = movies.limit;
+  const { page, count, curPage } = movies;
   movies = movies.data;
 
   const handleMoreView = () => {
-    dispatch(setLimit());
+    dispatch(setCurPage());
   };
 
   const getMovieData = async () => {
     try {
-      const { data } = await axios.get(
-        `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year&limit=${limit}`
-      );
-      const movies = await data.data.movies;
-      dispatch(setMovies(movies));
+      const API_URL = `https://yts.mx/api/v2/list_movies.json?sort_by=year&limit=20&sort_by=rating&page=${page + 1}`;
+      const { data } = await axios.get(API_URL);
+      const getMovies = await data.data.movies;
+      const count = await data.data.movie_count;
+      dispatch(setCount(count));
       setLoading(false);
+
+      // 중복id 제외
+      const getArr = [...movies, ...getMovies];
+      const newArr = await getArr.reduce(function (arr, current) {
+        if (arr.findIndex(({ id }) => id === current.id) === -1) {
+          arr.push(current);
+        }
+        return arr;
+      }, []);
+      dispatch(setMovies(newArr));
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    if (limit === 50) setMore(false);
-    if (movies.length !== limit) getMovieData();
-    else setLoading(false);
-  }, [limit]);
+    if (curPage !== page) {
+      dispatch(setPage());
+      getMovieData();
+      if (curPage === Math.ceil(count / 20)) {
+        setMore(false);
+      }
+    } else {
+      setLoading(false);
+    }
+  }, [curPage]);
 
   return (
     <Section>
