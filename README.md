@@ -1,7 +1,7 @@
 # Movie App
 
 - 🎞 movie app을 만들어보자!
-- [🔗 배포 사이트](https://6suk.github.io/movie_app/)
+- [🔗 배포 사이트](https://6suk.github.io/movie-app/)
 
 <br>
 
@@ -13,6 +13,6 @@
 - '더보기' 클릭 시 리스트 추가
 - 이미지 경로 오류 시(엑박 시) 제외
 - 클릭 시 디테일 페이지 출력
-- [더 많은 이슈보기](https://github.com/6suk/movie_app/issues?q=is%3Aissue+is%3Aclosed)
+- [더 많은 이슈보기](https://github.com/6suk/movie-app/issues?q=is%3Aissue+is%3Aclosed)
 
 <br><br>
